@@ -336,6 +336,26 @@ Pacman.User = function (game, map) {
         resetPosition();
     };        
     
+    function BtnKeyDown(e) {
+        var key = e.keyCode;
+        switch (key) {
+            case 37: // 左箭頭
+                // 處理左移動
+                break;
+            case 38: // 上箭頭
+                // 處理上移動
+                break;
+            case 39: // 右箭頭
+                // 處理右移動
+                break;
+            case 40: // 下箭頭
+                // 處理下移動
+                break;
+            case 78: // N 鍵
+                // 處理新遊戲
+                break;
+        }
+    }
     function keyDown(e) {
         if (typeof keyMap[e.keyCode] !== "undefined") { 
             due = keyMap[e.keyCode];

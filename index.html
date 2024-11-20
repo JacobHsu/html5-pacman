@@ -3,57 +3,147 @@
   <head>
     <meta charset="utf-8" />
     <title>HTML5 Pacman</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style type="text/css">
       @font-face {
-	    font-family: 'BDCartoonShoutRegular';
-        src: url('BD_Cartoon_Shout-webfont.ttf') format('truetype');
-	    font-weight: normal;
-	    font-style: normal;
+        font-family: "BDCartoonShoutRegular";
+        src: url("BD_Cartoon_Shout-webfont.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
       }
       #pacman {
-        height:450px;
-        width:342px;
-        margin:20px auto;
+        height: 450px;
+        width: 342px;
+        margin: 20px auto;
       }
-      #shim { 
-        font-family: BDCartoonShoutRegular; 
-        position:absolute;
-        visibility:hidden
+      #shim {
+        font-family: BDCartoonShoutRegular;
+        position: absolute;
+        visibility: hidden;
       }
-      h1 { font-family: BDCartoonShoutRegular; text-align:center; }
-      body { width:342px; margin:0px auto; font-family:sans-serif; }
-      a { text-decoration:none; }
+      h1 {
+        font-family: BDCartoonShoutRegular;
+        text-align: center;
+      }
+      body {
+        width: 342px;
+        margin: 0px auto;
+        font-family: sans-serif;
+      }
+      a {
+        text-decoration: none;
+      }
 
+      .controls {
+        display: none;
+        text-align: center;
+        margin-top: 10px;
+      }
+      .controls button {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        font-size: 20px;
+      }
     </style>
+  </head>
 
-</head>
+  <body>
+    <div id="shim">shim for font face</div>
 
-<body>
-  
-  <div id="shim">shim for font face</div>
+    <h1>Pacman</h1>
 
-  <h1>Pacman</h1>
-
-  <!-- <a href="http://arandomurl.com/">Writeup</a> |
+    <!-- <a href="http://arandomurl.com/">Writeup</a> |
   Code on <a href="http://arandomurl.com/">Github</a> -->
-  <div id="message"></div>
-  <div id="pacman"></div>
-  <script src="pacman.js"></script>
-  <script src="modernizr-1.5.min.js"></script>
+    <div id="message"></div>
+    <div id="pacman"></div>
+    <div class="controls">
+      <button id="up">↑</button><br />
+      <button id="left">←</button>
+      <button id="down">↓</button>
+      <button id="right">→</button><br />
+      <button id="newGame">N</button>
+    </div>
+    <script src="pacman.js"></script>
+    <script src="modernizr-1.5.min.js"></script>
 
-  <script>
+    <script>
+      var el = document.getElementById("pacman");
 
-    var el = document.getElementById("pacman");
+      if (
+        Modernizr.canvas &&
+        Modernizr.localstorage &&
+        Modernizr.audio &&
+        (Modernizr.audio.ogg || Modernizr.audio.mp3)
+      ) {
+        window.setTimeout(function () {
+          PACMAN.init(el, "./");
+        }, 0);
+      } else {
+        el.innerHTML =
+          "Sorry, needs a decent browser<br /><small>" +
+          "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
+      }
+    </script>
+    <script>
+      function isMobileDevice() {
+        return /Mobi|Android/i.test(navigator.userAgent);
+      }
 
-    if (Modernizr.canvas && Modernizr.localstorage && 
-        Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
-      window.setTimeout(function () { PACMAN.init(el, "./"); }, 0);
-    } else { 
-      el.innerHTML = "Sorry, needs a decent browser<br /><small>" + 
-        "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
-    }
-  </script>
+      // 如果是手機裝置，顯示虛擬按鈕
+      if (isMobileDevice()) {
+        document.getElementById('controls').style.display = 'block';
+      }
+      // 處理按鈕點擊事件
+      document.getElementById("up").addEventListener("click", function () {
+        var event = new KeyboardEvent("keydown", {
+          key: "ArrowUp",
+          keyCode: 38,
+          code: "ArrowUp",
+          which: 38,
+        });
+        document.dispatchEvent(event);
+      });
 
-</body>
+      document.getElementById("down").addEventListener("click", function () {
+        var event = new KeyboardEvent("keydown", {
+          key: "ArrowDown",
+          keyCode: 40,
+          code: "ArrowDown",
+          which: 40,
+        });
+        document.dispatchEvent(event);
+      });
+
+      document.getElementById("left").addEventListener("click", function () {
+        var event = new KeyboardEvent("keydown", {
+          key: "ArrowLeft",
+          keyCode: 37,
+          code: "ArrowLeft",
+          which: 37,
+        });
+        document.dispatchEvent(event);
+      });
+
+      document.getElementById("right").addEventListener("click", function () {
+        var event = new KeyboardEvent("keydown", {
+          key: "ArrowRight",
+          keyCode: 39,
+          code: "ArrowRight",
+          which: 39,
+        });
+        document.dispatchEvent(event);
+      });
+
+      document.getElementById("newGame").addEventListener("click", function () {
+        var event = new KeyboardEvent("keydown", {
+          key: "N",
+          keyCode: 78,
+          code: "KeyN",
+          which: 78,
+        });
+        document.dispatchEvent(event);
+      });
+    </script>
+  </body>
 </html>
