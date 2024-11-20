@@ -1022,7 +1022,6 @@ var PACMAN = (function () {
         map.reset();
         user.newLevel();
         startLevel();
-        alert('Go Jonny Go!');
     };
 
     function keyPress(e) { 
@@ -1040,6 +1039,7 @@ var PACMAN = (function () {
         
         canvas.setAttribute("width", (blockSize * 19) + "px");
         canvas.setAttribute("height", (blockSize * 22) + 30 + "px");
+        console.log( 222, (blockSize * 19) + "px" );
 
         wrapper.appendChild(canvas);
 
